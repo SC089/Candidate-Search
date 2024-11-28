@@ -8,6 +8,7 @@ const CandidateSearch: React.FC = () => {
   const [detailedCandidate, setDetailedCandidate] = useState<Candidate | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [savedCandidates, setSavedCandidates] = useState<Candidate[]>([]);
 
   useEffect(() => {
     const fetchCandidates = async () => {
@@ -40,8 +41,20 @@ const CandidateSearch: React.FC = () => {
     }
   }, [currentIndex, candidates]);
 
+  useEffect(() => {
+    const storedCandidates = localStorage.getItem('savedCandidates');
+    if (storedCandidates) {
+      setSavedCandidates(JSON.parse(storedCandidates));
+    }
+  }, []);
+
   const handleAccept = () => {
-    console.log('Accepted:', candidates[currentIndex]);
+    const acceptedCandidate = candidates[currentIndex];
+    setSavedCandidates((prev) => {
+      const updatedList = [...prev, acceptedCandidate];
+      localStorage.setItem('savedCandidates', JSON.stringify(updatedList));
+      return updatedList;
+    })
     showNextCandidate();
   };
 
