@@ -104,6 +104,26 @@ const CandidateSearch: React.FC = () => {
         <button onClick={handleAccept}>+</button>
         <button onClick={handleSkip}>-</button>
       </div>
+      <div>
+        <h2>Saved Candidates</h2>
+        <ul>
+          {savedCandidates.map((candidate) => (
+            <li key={candidate.id}>
+              <img
+              src={candidate.avatar_url}
+              alt={`${candidate.login}'s avatar`}
+              style={{ width: '50px', height: '50px', borderRadius: '50%' }}
+              />
+              <p>
+                {candidate.name || candidate.login} -{' '}
+                <a href={candidate.html_url} target="_blank" rel="noopener roreferrer">
+                  Profile
+                </a>
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
