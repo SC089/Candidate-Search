@@ -14,7 +14,9 @@ const CandidateSearch: React.FC = () => {
     const fetchCandidates = async () => {
       try {
         setLoading(true);
+        console.log('Searching GitHub!');
         const data = await searchGithub();
+        console.log('API Response:', data);
         setCandidates(data);
       } catch (err) {
         setError('Failed to load candidates. Please try again.');
@@ -27,8 +29,10 @@ const CandidateSearch: React.FC = () => {
   }, []);
 
   const fetchDetailedCandidate = async (username: string) => {
+    console.log('Fetching details for username:', username);
     try {
       const details = await searchGithubUser(username);
+      console.log('Fetched Details:', details);
       setDetailedCandidate(details);
     } catch (err) {
       console.error('Failed to fetch detailed candidate info', err);
@@ -36,7 +40,7 @@ const CandidateSearch: React.FC = () => {
   };
 
   useEffect(() => {
-    if (candidates.length > 0) {
+    if (candidates.length > 0 && candidates[currentIndex]?.login) {
       fetchDetailedCandidate(candidates[currentIndex].login);
     }
   }, [currentIndex, candidates]);
@@ -82,11 +86,11 @@ const CandidateSearch: React.FC = () => {
         <div>
           <img
             src={detailedCandidate.avatar_url}
-            alt={`${detailedCandidate.login}'s avatar`}
+            alt={`${detailedCandidate.login || 'Unknown User'}'s avatar`}
             style={{ width: '100px', height: '100px' }}
           />
           <p><strong>Name:</strong> {detailedCandidate.name || 'Not available'}</p>
-          <p><strong>Username:</strong> {detailedCandidate.login}</p>
+          <p><strong>Username:</strong> {detailedCandidate.login || 'Not avaialable'}</p>
           <p><strong>Email:</strong> {detailedCandidate.email || 'Not available'}</p>
           <p><strong>Location:</strong> {detailedCandidate.location || 'Not available'}</p>
           <p><strong>Company:</strong> {detailedCandidate.company || 'Not available'}</p>
