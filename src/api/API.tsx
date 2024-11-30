@@ -1,13 +1,14 @@
 const searchGithub = async () => {
   try {
+    console.log('Token from .env:', import.meta.env.VITE_GITHUB_TOKEN);
     const start = Math.floor(Math.random() * 100000000) + 1;
     console.log('Authorization Header:', `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`);
     const response = await fetch(
       `https://api.github.com/users?since=${start}`,
       {
         headers: {
-          // Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
-          Authorization: `Bearer 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`,
+          Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
+          // Authorization: `Bearer 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`,
         },
       }
     );
@@ -29,8 +30,8 @@ const searchGithubUser = async (username: string) => {
   try {
     const response = await fetch(`https://api.github.com/users/${username}`, {
       headers: {
-        // Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
-        Authorization: `Bearer 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`,
+        Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
+        // Authorization: `Bearer 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`,
       },
     });
     const data = await response.json();
