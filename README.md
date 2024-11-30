@@ -15,10 +15,7 @@ The **Candidate Search Application** is a web-based tool that allows users to re
 ---
 
 ## Installation
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd <repository-folder>
+1. Clone the repository
 2. npm install
 3. Add your GitHub token to a .env file.
 4. npm run dev
